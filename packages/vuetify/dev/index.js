@@ -5,6 +5,9 @@ import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 import router from './router'
 import '@mdi/font/css/materialdesignicons.css'
+import lqForm from 'lq-form'
+import store from '../src/store'
+Vue.use(lqForm, {store})
 
 Vue.config.performance = true
 
@@ -15,6 +18,7 @@ Vue.component(Boilerplate.name, Boilerplate)
 
 const vm = new Vue({
   data: () => ({ isLoaded: document.readyState === 'complete' }),
+  store,
   render (h) {
     return this.isLoaded ? h(App) : undefined
   },

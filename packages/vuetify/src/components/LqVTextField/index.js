@@ -1,4 +1,4 @@
-import VTextField from './VTextField'
+import LqVTextField from './LqVTextField'
 import VTextarea from '../VTextarea/VTextarea'
 import rebuildSlots from '../../util/rebuildFunctionalSlots'
 import dedupeModelListeners from '../../util/dedupeModelListeners'
@@ -9,7 +9,7 @@ import { deprecate } from '../../util/console'
 const wrapper = {
   functional: true,
 
-  $_wrapperFor: VTextField,
+  $_wrapperFor: LqVTextField,
 
   props: {
     textarea: Boolean,
@@ -28,15 +28,14 @@ const wrapper = {
     if (props.multiLine) {
       deprecate('<v-text-field multi-line>', '<v-textarea>', wrapper, parent)
     }
-
     if (props.textarea || props.multiLine) {
       data.attrs.outline = props.textarea
       return h(VTextarea, data, children)
     } else {
-      return h(VTextField, data, children)
+      return h(LqVTextField, data, children)
     }
   }
 }
 
-export { wrapper as VTextField }
+export { wrapper as LqVTextField }
 export default wrapper

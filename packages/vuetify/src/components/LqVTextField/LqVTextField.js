@@ -2,7 +2,7 @@
 import '../../stylus/components/_text-fields.styl'
 
 // Extensions
-import VInput from '../VInput'
+import VInput from '../LqVInput'
 
 // Components
 import VCounter from '../VCounter'
@@ -20,7 +20,7 @@ import {
   keyCodes
 } from '../../util/helpers'
 import { deprecate } from '../../util/console'
-import { lqElementMixin, lqPermissionMixin } from 'lq-form';
+import { lqElementMixin, lqPermissionMixin } from 'lq-form'
 const dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'month']
 
 /* @vue/component */
@@ -160,8 +160,7 @@ export default VInput.extend({
       this.hasColor = val
 
       if (val) {
-        //this.initialValue = this.lazyValue
-        this.setValue(this.lazyValue);
+        this.setValue(this.lazyValue)
       } else if (this.LQElement !== this.lazyValue) {
         this.$emit('change', this.lazyValue)
       }
@@ -194,7 +193,7 @@ export default VInput.extend({
       this.$refs.input ? this.$refs.input.blur() : this.onBlur()
     },
     clearableCallback () {
-      this.setValue(null);
+      this.setValue(null)
       this.$nextTick(() => this.$refs.input.focus())
     },
     genAppendSlot () {
@@ -313,7 +312,9 @@ export default VInput.extend({
           autofocus: this.autofocus,
           disabled: this.disabled,
           readonly: this.readonly,
-          type: this.type
+          type: this.type,
+          name: this.name,
+          id: `${this.lqForm.name}_${this.id}`
         },
         on: Object.assign(listeners, {
           blur: this.onBlur,
@@ -323,11 +324,9 @@ export default VInput.extend({
         }),
         ref: 'input'
       }
-
       if (this.placeholder) data.attrs.placeholder = this.placeholder
       if (this.mask) data.attrs.maxlength = this.masked.length
       if (this.browserAutocomplete) data.attrs.autocomplete = this.browserAutocomplete
-
       return this.$createElement('input', data)
     },
     genMessages () {
@@ -385,7 +384,7 @@ export default VInput.extend({
     onInput (e) {
       this.internalChange = true
       this.mask && this.resetSelections(e.target)
-      this.setValue(e.target.value);
+      this.setValue(e.target.value)
       this.badInput = e.target.validity && e.target.validity.badInput
     },
     onKeyDown (e) {

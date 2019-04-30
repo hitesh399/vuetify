@@ -1,4 +1,4 @@
-import VForm from './VForm'
+import LqVForm from './LqVForm'
 
-export { VForm }
-export default VForm
+export { LqVForm }
+export default LqVForm

@@ -141,6 +141,9 @@ declare module 'vuetify/lib' {
   const VTreeviewNode: Component
   const VWindow: Component
   const VWindowItem: Component
+  const LqVForm: Component
+  const LqVTextField: Component
+  const LqVInput: Component
 
   export default Vuetify
   export {
@@ -274,6 +277,9 @@ declare module 'vuetify/lib' {
     VTreeview,
     VTreeviewNode,
     VWindow,
-    VWindowItem
+    VWindowItem,
+    LqVForm,
+    LqVTextField,
+    LqVInput
   }
 }
