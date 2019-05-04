@@ -21,7 +21,7 @@ export default {
         novalidate: true
       }, this.$attrs),
       on: {
-        submit: e => this.submit()
+        submit: e => { e.preventDefault(); this.submit() }
       }
     }, this.$slots.default)
   }

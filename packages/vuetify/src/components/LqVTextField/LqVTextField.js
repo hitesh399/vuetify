@@ -3,13 +3,12 @@ import '../../stylus/components/_text-fields.styl'
 
 // Extensions
 import VInput from '../LqVInput'
-
 // Components
 import VCounter from '../VCounter'
 import VLabel from '../VLabel'
 
 // Mixins
-import Maskable from '../../mixins/maskable'
+import Maskable from '../../mixins/lq-maskable'
 import Loadable from '../../mixins/loadable'
 
 // Directives
@@ -68,7 +67,8 @@ export default VInput.extend({
     type: {
       type: String,
       default: 'text'
-    }
+    },
+    customMask: Function
   },
 
   data: () => ({
@@ -155,16 +155,6 @@ export default VInput.extend({
   },
 
   watch: {
-    isFocused (val) {
-      // Sets validationState from validatable
-      this.hasColor = val
-
-      if (val) {
-        this.setValue(this.lazyValue)
-      } else if (this.LQElement !== this.lazyValue) {
-        this.$emit('change', this.lazyValue)
-      }
-    },
     value (val) {
       if (this.mask && !this.internalChange) {
         const masked = this.maskText(this.unmaskText(val))
@@ -300,11 +290,10 @@ export default VInput.extend({
     genInput () {
       const listeners = Object.assign({}, this.$listeners)
       delete listeners['change'] // Change should not be bound externally
-
       const data = {
         style: {},
         domProps: {
-          value: this.maskText(this.lazyValue)
+          value: this.customMask ? this.customMask(this.lazyValue) : this.maskText(this.lazyValue)
         },
         attrs: {
           'aria-label': (!this.$attrs || !this.$attrs.id) && this.label, // Label `for` will be set if we have an id
@@ -361,13 +350,13 @@ export default VInput.extend({
       // to allow external change
       // to persist
       this.internalChange = false
-
-      this.$emit('blur', e)
+      this.emitNativeEvent(e)
     },
-    onClick () {
+    onClick (e) {
       if (this.isFocused || this.disabled) return
 
       this.$refs.input.focus()
+      this.emitNativeEvent(e)
     },
     onFocus (e) {
       if (!this.$refs.input) return
@@ -378,13 +367,13 @@ export default VInput.extend({
 
       if (!this.isFocused) {
         this.isFocused = true
-        this.$emit('focus', e)
+        this.emitNativeEvent(e)
       }
     },
     onInput (e) {
       this.internalChange = true
       this.mask && this.resetSelections(e.target)
-      this.setValue(e.target.value)
+      this.setValue(this.unmaskText(e.target.value))
       this.badInput = e.target.validity && e.target.validity.badInput
     },
     onKeyDown (e) {

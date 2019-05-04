@@ -9,32 +9,16 @@ import VMessages from '../VMessages'
 // Mixins
 import Colorable from '../../mixins/colorable'
 import Themeable from '../../mixins/themeable'
-import Validatable from '../../mixins/validatable'
-
+import Validatable from '../../mixins/lq-validatable'
 // Utilities
 import {
   convertToUnit,
   kebabCase
 } from '../../util/helpers'
 import { deprecate } from '../../util/console'
-import mixins, { ExtractVue } from '../../util/mixins'
+import mixins from '../../util/mixins'
 
-// Types
-import Vue, { VNode, VNodeData } from 'vue'
-interface options extends Vue {
-  /* eslint-disable-next-line camelcase */
-  $_modelEvent: string
-}
-
-export default mixins<options &
-/* eslint-disable indent */
-  ExtractVue<[
-    typeof Colorable,
-    typeof Themeable,
-    typeof Validatable
-  ]>
-/* eslint-enable indent */
->(
+export default mixins(
   Colorable,
   Themeable,
   Validatable
@@ -58,21 +42,20 @@ export default mixins<options &
     persistentHint: Boolean,
     prependIcon: String,
     /** @deprecated */
-    prependIconCb: Function,
-    value: { required: false }
+    prependIconCb: Function
   },
 
   data () {
     return {
       attrsInput: {},
-      lazyValue: this.value as any,
+      lazyValue: this.value,
       hasMouseDown: false
     }
   },
 
   computed: {
     classes: () => ({}),
-    classesInput (): object {
+    classesInput () {
       return {
         ...this.classes,
         'v-input--has-state': this.hasState,
@@ -105,7 +88,7 @@ export default mixins<options &
       get () {
         return this.lazyValue
       },
-      set (val: any) {
+      set (val) {
         this.lazyValue = val
         this.$emit(this.$_modelEvent, val)
       }
@@ -157,19 +140,19 @@ export default mixins<options &
     },
     // TODO: remove shouldDeprecate (2.0), used for clearIcon
     genIcon (
-      type: string,
-      cb?: (e: Event) => void,
+      type,
+      cb,
       shouldDeprecate = true
     ) {
-      const icon = (this as any)[`${type}Icon`]
+      const icon = (this)[`${type}Icon`]
       const eventName = `click:${kebabCase(type)}`
-      cb = cb || (this as any)[`${type}IconCb`]
+      cb = cb || (this)[`${type}IconCb`]
 
       if (shouldDeprecate && type && cb) {
         deprecate(`:${type}-icon-cb`, `@${eventName}`, this)
       }
 
-      const data: VNodeData = {
+      const data = {
         props: {
           color: this.validationState,
           dark: this.dark,
@@ -179,7 +162,7 @@ export default mixins<options &
         on: !(this.$listeners[eventName] || cb)
           ? undefined
           : {
-            click: (e: Event) => {
+            click: e => {
               e.preventDefault()
               e.stopPropagation()
 
@@ -188,7 +171,7 @@ export default mixins<options &
             },
             // Container has mouseup event that will
             // trigger menu open if enclosed
-            mouseup: (e: Event) => {
+            mouseup: e => {
               e.preventDefault()
               e.stopPropagation()
             }
@@ -221,7 +204,6 @@ export default mixins<options &
     },
     genLabel () {
       if (!this.hasLabel) return null
-
       return this.$createElement(VLabel, {
         props: {
           color: this.validationState,
@@ -234,11 +216,9 @@ export default mixins<options &
     },
     genMessages () {
       if (this.hideDetails) return null
-
       const messages = this.hasHint
         ? [this.hint]
         : this.validations
-
       return this.$createElement(VMessages, {
         props: {
           color: this.hasHint ? '' : this.validationState,
@@ -249,9 +229,9 @@ export default mixins<options &
       })
     },
     genSlot (
-      type: string,
-      location: string,
-      slot: (VNode | VNode[])[]
+      type,
+      location,
+      slot
     ) {
       if (!slot.length) return null
 
@@ -288,22 +268,22 @@ export default mixins<options &
 
       return this.genSlot('append', 'outer', slot)
     },
-    onClick (e: Event) {
+    onClick (e) {
       this.$emit('click', e)
     },
-    onMouseDown (e: Event) {
+    onMouseDown (e) {
       this.hasMouseDown = true
       this.$emit('mousedown', e)
     },
-    onMouseUp (e: Event) {
+    onMouseUp (e) {
       this.hasMouseDown = false
       this.$emit('mouseup', e)
     }
   },
 
-  render (h): VNode {
+  render (h) {
     return h('div', this.setTextColor(this.validationState, {
-      staticClass: 'v-input',
+      staticClass: 'v-input lq-v-input',
       attrs: this.attrsInput,
       'class': this.classesInput
     }), this.genContent())
