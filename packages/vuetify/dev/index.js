@@ -7,7 +7,9 @@ import router from './router'
 import '@mdi/font/css/materialdesignicons.css'
 import lqForm from 'lq-form'
 import store from '../src/store'
-Vue.use(lqForm, {store})
+import './axios'
+
+Vue.use(lqForm, { store })
 
 Vue.config.performance = true
 
