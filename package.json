@@ -44,8 +44,5 @@
     "typestrict": "^1.0.2",
     "vue": "^2.6.6",
     "vue-template-compiler": "^2.6.6"
-  },
-  "dependencies": {
-    "lq-form": "^0.1.3"
   }
 }

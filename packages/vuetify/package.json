@@ -90,6 +90,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "lq-form": "^0.1.4"
+    "lq-form": "^0.1.7",
+    "vue-croppie": "^2.0.1"
   }
 }

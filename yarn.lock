@@ -3338,6 +3338,11 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+croppie@^2.6.4:
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/croppie/-/croppie-2.6.4.tgz#7477b8c5af560c09841f7c84f55066ba128544da"
+  integrity sha512-dK2gP7nmAuzMP8TU+JNPOmZJkMyp5VPMJxE/uvmiOC7Vzwon333eo2i9T40D5rqm9NrBJU/ovAyg7xDX2Swaiw==
+
 cross-env@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-5.2.0.tgz#6ecd4c015d5773e614039ee529076669b9d126f2"
@@ -7493,21 +7498,10 @@ lowercase-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
   integrity sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==
 
-lq-form@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.3.tgz#29b1862c859c1b7cf078e54d4d6a80ab951a954f"
-  integrity sha512-kL7A8Cixxt1+StbmvoOQvua/+G44BvON+/wu2sYgl6IpXmSge4o+YfQlK2OmuktmYIiS0OpWwwJ71hxkv5gdJA==
-  dependencies:
-    lodash "^4.17.11"
-    recursive-copy "^2.0.10"
-    validate.js "^0.12.0"
-    vuejs-object-helper "^0.1.25"
-    vuex "^3.1.0"
-
-lq-form@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.4.tgz#5f9db33add3d4d97035b33a6362a7abd1c7e4d4a"
-  integrity sha512-E0vDwp8rmoihNRoCaf/J2UDvVNms30nB9ZXuosfDB2zdULePECAHayUu2D2o0Su4psEzX1CudkzbJ4oaHuevng==
+lq-form@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.7.tgz#90913d20b1342585b6a092f469aa24ce1e7e1bd9"
+  integrity sha512-3TpOHLuQiAP2v2jnpQA9d+7KMNvlZnlLUpASN7MtjhRGO7iWYU7xz8KDTmZfqkdAGp7fBH5YAHf5E3edlX7UlA==
   dependencies:
     lodash "^4.17.11"
     recursive-copy "^2.0.10"
@@ -12063,6 +12057,13 @@ vue-color@^2.4.6:
     material-colors "^1.0.0"
     tinycolor2 "^1.1.2"
 
+vue-croppie@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vue-croppie/-/vue-croppie-2.0.1.tgz#ba52b2b9aaae3db882618567f96bc95ea69b41ec"
+  integrity sha512-oo9EVHvjlMg3kegHq55pibbSk4mOiAIpzEnjnhZS8kSGAFtbJ0sB9q4JrOnsfcE1gtml/UfavEVJ9fH8bGhcSQ==
+  dependencies:
+    croppie "^2.6.4"
+
 vue-eslint-parser@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-4.0.3.tgz#80cf162e484387b2640371ad21ba1f86e0c10a61"
@@ -12198,7 +12199,7 @@ vuetify-loader@^0.2.0:
     gm "^1.23.1"
     loader-utils "^1.1.0"
 
-vuetify@^1.5.13:
+vuetify@^1.5.14:
   version "1.5.14"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-1.5.14.tgz#ff67d0b8a398be5297da159b6cd1b31f4d2898b8"
   integrity sha512-7iM+TfghR/wu/Gl+k37lKr0N8Ddr6SxzqHtoK1dIyHgCH6SJRkpaXPw2MC5/FsAg9aUDJbYNWrzSeu5eHw+Q/w==
