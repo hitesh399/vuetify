@@ -698,9 +698,10 @@ export default VTextField.extend({
       this.$refs.menu && (this.$refs.menu.listIndex = index)
     },
     formatter () {
-      return this.returnObject ? this.selectedItems : this.selectedItems.map(selectedItem => {
+      const output = this.returnObject ? this.selectedItems : this.selectedItems.map(selectedItem => {
         return this.getValue(selectedItem)
       })
+      return output ? (this.multiple ? output : output[0]) : null
     },
     setSelectedItems () {
       const selectedItems = []

@@ -7498,10 +7498,10 @@ lowercase-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
   integrity sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==
 
-lq-form@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.7.tgz#90913d20b1342585b6a092f469aa24ce1e7e1bd9"
-  integrity sha512-3TpOHLuQiAP2v2jnpQA9d+7KMNvlZnlLUpASN7MtjhRGO7iWYU7xz8KDTmZfqkdAGp7fBH5YAHf5E3edlX7UlA==
+lq-form@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.8.tgz#60c9519e0706fd78dcf86e96a36ac496d8e20993"
+  integrity sha512-5kIisoPOpdvQr4Rqv/oNoZs80Fow6F10f6FGI6+AQLMA55tjHgjLY0r1VcQIE4USI4aukt0GGKCLFRj9yCfs4A==
   dependencies:
     lodash "^4.17.11"
     recursive-copy "^2.0.10"

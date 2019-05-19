@@ -1,7 +1,7 @@
 {
-  "name": "vuetify",
+  "name": "lq-vuetify",
   "description": "Vue.js 2 Semantic Component Framework",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "author": {
     "name": "Hitesh kumar",
     "email": "hitesh.kumar399@gmail.com"
@@ -90,7 +90,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "lq-form": "^0.1.7",
+    "cross-env": "^5.2.0",
+    "lq-form": "^0.1.8",
     "vue-croppie": "^2.0.1"
   }
 }
