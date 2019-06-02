@@ -35,6 +35,9 @@ exports.config = {
   node: {
     fs: 'empty'
   },
+  externals: {
+    'lq-form': 'lq-form'
+  },
   module: {
     rules: [
       {
