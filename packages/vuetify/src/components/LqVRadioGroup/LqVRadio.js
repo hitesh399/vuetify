@@ -14,6 +14,8 @@ import {
   inject as RegistrableInject
 } from '../../mixins/registrable'
 import { lqElementMixin, lqPermissionMixin } from 'lq-form'
+import helper from 'vuejs-object-helper'
+import VMessages from '../VMessages'
 
 /* @vue/component */
 export default {
@@ -57,6 +59,9 @@ export default {
   }),
 
   computed: {
+    value () {
+      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
+    },
     computedData () {
       return this.setTextColor(!this.parentError && this.isActive && this.color, {
         staticClass: 'v-radio',
@@ -155,13 +160,28 @@ export default {
     },
     onKeydown (e) {
       this.emitNativeEvent(e)
+    },
+    genMessages () {
+      if (this.hideDetails) return null
+      const messages = this.hasHint
+        ? [this.hint]
+        : this.validations
+      return this.$createElement(VMessages, {
+        props: {
+          color: this.hasHint ? '' : this.validationState,
+          dark: this.dark,
+          light: this.light,
+          value: (this.hasMessages || this.hasHint) ? messages : []
+        }
+      })
     }
   },
 
   render (h) {
     return h('div', this.computedData, [
       this.genRadio(),
-      this.genLabel()
+      this.genLabel(),
+      this.genMessages()
     ])
   }
 }

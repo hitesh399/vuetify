@@ -20,6 +20,8 @@ import {
 } from '../../util/helpers'
 import { deprecate } from '../../util/console'
 import { lqElementMixin, lqPermissionMixin } from 'lq-form'
+import helper from 'vuejs-object-helper'
+
 const dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'month']
 
 /* @vue/component */
@@ -78,6 +80,9 @@ export default VInput.extend({
   }),
 
   computed: {
+    value () {
+      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
+    },
     classes () {
       return {
         'v-text-field': true,

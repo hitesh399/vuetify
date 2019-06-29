@@ -2,8 +2,8 @@
 import '../../stylus/components/_autocompletes.styl'
 
 // Extensions
-import VSelect from '../VSelect/VSelect'
-import VAutocomplete from '../VAutocomplete/VAutocomplete'
+import VSelect from '../LqVSelect/LqVSelect'
+import VAutocomplete from '../LqVAutocomplete/LqVAutocomplete'
 
 // Utils
 import { keyCodes } from '../../util/helpers'
@@ -183,7 +183,6 @@ export default {
     },
     updateTags () {
       const menuIndex = this.getMenuIndex()
-
       // If the user is not searching
       // and no menu item is selected
       // do nothing

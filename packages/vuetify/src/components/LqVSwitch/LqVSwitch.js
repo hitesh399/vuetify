@@ -13,6 +13,7 @@ import VProgressCircular from '../VProgressCircular/VProgressCircular'
 import { lqElementMixin, lqPermissionMixin } from 'lq-form'
 // Helpers
 import { keyCodes } from '../../util/helpers'
+import helper from 'vuejs-object-helper'
 
 /* @vue/component */
 export default {
@@ -34,6 +35,9 @@ export default {
   },
 
   computed: {
+    value () {
+      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
+    },
     computedColor () {
       return this.validationState === 'error' ? 'error' : (this.isActive ? this.color : undefined)
     },

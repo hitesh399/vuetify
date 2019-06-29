@@ -90,6 +90,7 @@ export default VTextField.extend({
     multiple: Boolean,
     openOnClear: Boolean,
     returnObject: Boolean,
+    extraObjectKeys: Array,
     searchInput: {
       default: null
     },
@@ -127,6 +128,9 @@ export default VTextField.extend({
         'v-select--chips--small': this.smallChips,
         'v-select--is-menu-active': this.isMenuActive
       })
+    },
+    value () {
+      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
     },
     items () {
       return this.storeKey ? helper.getProp(this.$store.state, this.storeKey, []) : this.options
@@ -698,8 +702,30 @@ export default VTextField.extend({
       this.$refs.menu && (this.$refs.menu.listIndex = index)
     },
     formatter () {
-      const output = this.returnObject ? this.selectedItems : this.selectedItems.map(selectedItem => {
-        return this.getValue(selectedItem)
+      // this.returnObject ? this.selectedItems :
+      const output = this.selectedItems.map(selectedItem => {
+        if (this.returnObject) {
+          if (typeof selectedItem === 'string') {
+            return {
+              [this.itemText]: selectedItem,
+              new: true
+            }
+          }
+          const item = {}
+          const extraObjectKeys = this.extraObjectKeys ? Object.assign([], this.extraObjectKeys) : []
+          extraObjectKeys.push(this.itemText)
+          extraObjectKeys.push(this.itemValue)
+
+          extraObjectKeys.forEach(extrakey => {
+            const val = selectedItem[extrakey]
+            if (val) {
+              item[extrakey] = val
+            }
+          })
+          return item
+        } else {
+          return this.getValue(selectedItem)
+        }
       })
       return output ? (this.multiple ? output : output[0]) : null
     },
