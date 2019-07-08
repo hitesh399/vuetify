@@ -20,7 +20,7 @@ import {
 } from '../../util/helpers'
 import { deprecate } from '../../util/console'
 import { lqElementMixin, lqPermissionMixin } from 'lq-form'
-import helper from 'vuejs-object-helper'
+// import helper from 'vuejs-object-helper'
 
 const dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'month']
 
@@ -80,9 +80,6 @@ export default VInput.extend({
   }),
 
   computed: {
-    value () {
-      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
-    },
     classes () {
       return {
         'v-text-field': true,
@@ -100,7 +97,7 @@ export default VInput.extend({
       }
     },
     counterValue () {
-      return (this.LQElement || '').toString().length
+      return (this.internalValue || '').toString().length
     },
     directivesInput () {
       return []
@@ -108,6 +105,22 @@ export default VInput.extend({
     // TODO: Deprecate
     hasOutline () {
       return this.outline || this.textarea
+    },
+    internalValue: {
+      get () {
+        return this.lazyValue
+      },
+      set (val) {
+        if (this.mask && val !== this.lazyValue) {
+          this.lazyValue = this.unmaskText(this.maskText(this.unmaskText(val)))
+          this.setValue(this.lazyValue)
+          this.setSelectionRange()
+        } else {
+          this.lazyValue = val
+          this.setValue(this.lazyValue)
+          this.$emit('input', this.lazyValue)
+        }
+      }
     },
     isDirty () {
       return (this.lazyValue != null &&
@@ -158,22 +171,29 @@ export default VInput.extend({
       return (this.prefix && !this.value)
     }
   },
-
   watch: {
     value (val) {
       if (this.mask && !this.internalChange) {
         const masked = this.maskText(this.unmaskText(val))
         this.lazyValue = this.unmaskText(masked)
-
+        this.setValue(this.lazyValue)
         // Emit when the externally set value was modified internally
         String(val) !== this.lazyValue && this.$nextTick(() => {
           this.$refs.input.value = masked
           this.$emit('input', this.lazyValue)
         })
-      } else this.lazyValue = val
+      } else {
+        this.lazyValue = val
+        this.setValue(this.lazyValue)
+      }
     }
   },
-
+  created () {
+    if (this.value) {
+      this.lazyValue = this.value
+      this.setValue(this.lazyValue)
+    }
+  },
   mounted () {
     this.autofocus && this.onFocus()
   },
@@ -188,7 +208,8 @@ export default VInput.extend({
       this.$refs.input ? this.$refs.input.blur() : this.onBlur()
     },
     clearableCallback () {
-      this.setValue(null)
+      this.touchStatus(true)
+      this.internalValue = null
       this.$nextTick(() => this.$refs.input.focus())
     },
     genAppendSlot () {
@@ -378,13 +399,13 @@ export default VInput.extend({
     onInput (e) {
       this.internalChange = true
       this.mask && this.resetSelections(e.target)
-      this.setValue(this.unmaskText(e.target.value))
+      this.internalValue = e.target.value
       this.badInput = e.target.validity && e.target.validity.badInput
     },
     onKeyDown (e) {
       this.internalChange = true
 
-      if (e.keyCode === keyCodes.enter) this.$emit('change', this.LQElement)
+      if (e.keyCode === keyCodes.enter) this.$emit('change', this.internalValue)
 
       this.$emit('keydown', e)
     },

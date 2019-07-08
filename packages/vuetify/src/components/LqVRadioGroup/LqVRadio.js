@@ -14,7 +14,7 @@ import {
   inject as RegistrableInject
 } from '../../mixins/registrable'
 import { lqElementMixin, lqPermissionMixin } from 'lq-form'
-import helper from 'vuejs-object-helper'
+// import helper from 'vuejs-object-helper'
 import VMessages from '../VMessages'
 
 /* @vue/component */
@@ -49,7 +49,7 @@ export default {
       default: '$vuetify.icons.radioOff'
     },
     readonly: Boolean,
-    val: null
+    value: null
   },
 
   data: () => ({
@@ -59,9 +59,6 @@ export default {
   }),
 
   computed: {
-    value () {
-      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
-    },
     computedData () {
       return this.setTextColor(!this.parentError && this.isActive && this.color, {
         staticClass: 'v-radio',
@@ -142,20 +139,18 @@ export default {
     },
     onFocus (e) {
       this.isFocused = true
-      // this.$emit('focus', e)
       this.emitNativeEvent(e)
     },
     onBlur (e) {
       this.isFocused = false
-      // this.$emit('blur', e)
       this.emitNativeEvent(e)
     },
     onChange () {
       if (this.isDisabled || this.isReadonly) return
 
       if (!this.isDisabled && (!this.isActive || !this.mandatory)) {
-        // this.$emit('change', this.value)
-        this.setValue(this.val)
+        // this.internalValue = this.value
+        this.setValue(this.value)
       }
     },
     onKeydown (e) {

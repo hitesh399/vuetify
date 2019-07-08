@@ -1,12 +1,13 @@
 // Components
-import VInput from '../components/LqVInput'
+import VInput from '../components/LqVInput/LqVInput'
 
 // Mixins
 import Rippleable from './rippleable'
 import Comparable from './comparable'
+
 /* @vue/component */
 export default VInput.extend({
-  name: 'lq-selectable',
+  name: 'selectable',
 
   mixins: [Rippleable, Comparable],
 
@@ -21,7 +22,6 @@ export default VInput.extend({
       default: 'accent'
     },
     id: String,
-    idIndex: [Number, String],
     inputValue: null,
     falseValue: null,
     trueValue: null,
@@ -29,8 +29,7 @@ export default VInput.extend({
       type: Boolean,
       default: null
     },
-    label: String,
-    val: [String, Number]
+    label: String
   },
 
   data: vm => ({
@@ -45,8 +44,9 @@ export default VInput.extend({
       return this.multiple === true || (this.multiple === null && Array.isArray(this.internalValue))
     },
     isActive () {
-      const value = this.val
+      const value = this.value
       const input = this.internalValue
+
       if (this.isMultiple) {
         if (!Array.isArray(input)) return false
 
@@ -75,7 +75,9 @@ export default VInput.extend({
   methods: {
     genLabel () {
       if (!this.hasLabel) return null
+
       const label = VInput.options.methods.genLabel.call(this)
+
       label.data.on = { click: this.onChange }
 
       return label
@@ -89,7 +91,7 @@ export default VInput.extend({
           id: this.id,
           role: type,
           type
-        }, attrs, { id: `${this.formName}.${this.id}.${this.idIndex}` }),
+        }, attrs),
         domProps: {
           value: this.value,
           checked: this.isActive
@@ -103,14 +105,13 @@ export default VInput.extend({
         ref: 'input'
       })
     },
-    onBlur (e) {
+    onBlur () {
       this.isFocused = false
-      this.emitNativeEvent(e)
     },
     onChange () {
       if (this.isDisabled) return
 
-      const value = this.val
+      const value = this.value
       let input = this.internalValue
 
       if (this.isMultiple) {
@@ -132,16 +133,14 @@ export default VInput.extend({
       } else {
         input = !input
       }
+
+      this.validate(true, input)
       this.internalValue = input
-      this.setValue(this.internalValue)
     },
-    onFocus (e) {
+    onFocus () {
       this.isFocused = true
-      this.emitNativeEvent(e)
     },
     /** @abstract */
-    onKeydown (e) {
-      this.emitNativeEvent(e)
-    }
+    onKeydown (e) {}
   }
 })

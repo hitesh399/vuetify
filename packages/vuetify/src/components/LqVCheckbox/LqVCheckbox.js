@@ -8,7 +8,7 @@ import VIcon from '../VIcon'
 // Mixins
 import Selectable from '../../mixins/lq-selectable'
 import { lqElementMixin, lqPermissionMixin } from 'lq-form'
-import helper from 'vuejs-object-helper'
+// import helper from 'vuejs-object-helper'
 
 /* @vue/component */
 export default {
@@ -41,9 +41,6 @@ export default {
   }),
 
   computed: {
-    value () {
-      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
-    },
     classes () {
       return {
         'v-input--selection-controls': true,

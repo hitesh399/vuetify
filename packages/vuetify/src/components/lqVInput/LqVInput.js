@@ -42,7 +42,8 @@ export default mixins(
     persistentHint: Boolean,
     prependIcon: String,
     /** @deprecated */
-    prependIconCb: Function
+    prependIconCb: Function,
+    value: { required: false }
   },
 
   data () {
@@ -90,6 +91,7 @@ export default mixins(
       },
       set (val) {
         this.lazyValue = val
+        this.setValue(this.lazyValue)
         this.$emit(this.$_modelEvent, val)
       }
     },
@@ -105,6 +107,11 @@ export default mixins(
   },
 
   watch: {
+    LQElement (val) {
+      if (!this.internalChange) {
+        this.lazyValue = val
+      }
+    },
     value (val) {
       this.lazyValue = val
     }
@@ -115,7 +122,9 @@ export default mixins(
     // https://github.com/vuetifyjs/vuetify/issues/4752
     this.$_modelEvent = (this.$options.model && this.$options.model.event) || 'input'
   },
-
+  created () {
+    if (this.value) this.lazyValue = this.value
+  },
   methods: {
     genContent () {
       return [

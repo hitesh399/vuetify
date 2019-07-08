@@ -152,14 +152,14 @@ export default {
         this.selectedItems = this.multiple ? this.internalValue : [this.internalValue]
       }
     },
-    setValue (value = this.internalSearch) {
-      VSelect.options.methods.setValue.call(this, value)
+    setInternalValue (value = this.internalSearch) {
+      VSelect.options.methods.setInternalValue.call(this, value)
     },
     updateEditing () {
       const value = this.internalValue.slice()
       value[this.editingIndex] = this.internalSearch
 
-      this.setValue(value)
+      this.setInternalValue(value)
 
       this.editingIndex = -1
     },
@@ -172,7 +172,7 @@ export default {
 
       // The internal search is not matching
       // the internal value, update the input
-      if (this.internalSearch !== this.getText(this.internalValue)) this.setValue()
+      if (this.internalSearch !== this.getText(this.internalValue)) this.setInternalValue()
 
       // Reset search if using slot
       // to avoid a double input
@@ -202,7 +202,7 @@ export default {
         const internalValue = this.internalValue.slice()
         internalValue.splice(index, 1)
 
-        this.setValue(internalValue)
+        this.setInternalValue(internalValue)
       }
 
       // If menu index is greater than 1

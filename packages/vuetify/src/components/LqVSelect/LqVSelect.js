@@ -129,9 +129,6 @@ export default VTextField.extend({
         'v-select--is-menu-active': this.isMenuActive
       })
     },
-    value () {
-      return helper.getProp(this.$store.state.form, `${this.formName}.values.${this.id}`)
-    },
     items () {
       return this.storeKey ? helper.getProp(this.$store.state, this.storeKey, []) : this.options
     },
@@ -279,7 +276,7 @@ export default VTextField.extend({
       this.isMenuActive = true
     },
     clearableCallback () {
-      this.setValue(this.multiple ? [] : undefined)
+      this.setInternalValue(this.multiple ? [] : undefined)
       this.$nextTick(() => this.$refs.input.focus())
 
       if (this.openOnClear) this.isMenuActive = true
@@ -544,7 +541,7 @@ export default VTextField.extend({
     },
     onChipInput (item) {
       if (this.multiple) this.selectItem(item)
-      else this.setValue(null)
+      else this.setInternalValue(null)
       // If all items have been deleted,
       // open `v-menu`
       if (this.selectedItems.length === 0) {
@@ -588,7 +585,7 @@ export default VTextField.extend({
       const index = this.allItems.findIndex(item => this.getText(item).toLowerCase().startsWith(this.keyboardLookupPrefix))
       const item = this.allItems[index]
       if (index !== -1) {
-        this.setValue(this.returnObject ? item : this.getValue(item))
+        this.setInternalValue(this.returnObject ? item : this.getValue(item))
         setTimeout(() => this.setMenuIndex(index))
       }
     },
@@ -678,14 +675,14 @@ export default VTextField.extend({
     },
     selectItem (item) {
       if (!this.multiple) {
-        this.setValue(this.returnObject ? item : this.getValue(item))
+        this.setInternalValue(this.returnObject ? item : this.getValue(item))
         this.isMenuActive = false
       } else {
         const internalValue = (this.internalValue || []).slice()
         const i = this.findExistingIndex(item)
 
         i !== -1 ? internalValue.splice(i, 1) : internalValue.push(item)
-        this.setValue(internalValue.map(i => {
+        this.setInternalValue(internalValue.map(i => {
           return this.returnObject ? i : this.getValue(i)
         }))
 
@@ -757,6 +754,11 @@ export default VTextField.extend({
         }
       })
       this.selectedItems = selectedItems
+    },
+    setInternalValue (value) {
+      const oldValue = this.internalValue
+      this.internalValue = value
+      value !== oldValue && this.$emit('change', value)
     }
   }
 })
