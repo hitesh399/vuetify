@@ -140,6 +140,9 @@ export default {
     onFocus (e) {
       this.isFocused = true
       this.emitNativeEvent(e)
+      if (!this.touch) {
+        this.touchStatus(true)
+      }
     },
     onBlur (e) {
       this.isFocused = false
@@ -147,7 +150,9 @@ export default {
     },
     onChange () {
       if (this.isDisabled || this.isReadonly) return
-
+      if (!this.touch) {
+        this.touchStatus(true)
+      }
       if (!this.isDisabled && (!this.isActive || !this.mandatory)) {
         // this.internalValue = this.value
         this.setValue(this.value)

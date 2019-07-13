@@ -38,7 +38,7 @@ export default mixins(
 
   computed: {
     hasError () {
-      return this.error && this.error.length > 0
+      return this.elError && this.elError.length > 0
     },
     // TODO: Add logic that allows the user to enable based
     // upon a good validation
@@ -72,7 +72,7 @@ export default mixins(
       return this.validationTarget.length > 0
     },
     validationTarget () {
-      return this.error ? this.error : []
+      return this.elError ? this.elError : []
     }
   },
   watch: {

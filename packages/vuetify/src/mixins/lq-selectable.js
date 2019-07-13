@@ -110,7 +110,9 @@ export default VInput.extend({
     },
     onChange () {
       if (this.isDisabled) return
-
+      if (!this.touch) {
+        this.touchStatus(true)
+      }
       const value = this.value
       let input = this.internalValue
 
@@ -133,12 +135,13 @@ export default VInput.extend({
       } else {
         input = !input
       }
-
-      this.validate(true, input)
       this.internalValue = input
     },
     onFocus () {
       this.isFocused = true
+      if (!this.touch) {
+        this.touchStatus(true)
+      }
     },
     /** @abstract */
     onKeydown (e) {}

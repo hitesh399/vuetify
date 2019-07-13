@@ -143,7 +143,9 @@ export default mixins(
     createClickFn (i: number): Function {
       return (e: MouseEvent) => {
         if (this.readonly) return
-
+        if (!this.touch) {
+          this.touchStatus(true)
+        }
         const newValue = this.genHoverIndex(e, i)
         if (this.clearable && this.internalValue === newValue) {
           this.internalValue = 0

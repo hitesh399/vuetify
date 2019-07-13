@@ -7518,10 +7518,10 @@ lowercase-keys@^1.0.0:
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
   integrity sha512-G2Lj61tXDnVFFOi8VZds+SoQjtQC3dgokKdDG2mTm1tx4m50NUHBOZSBwQQHyy0V12A0JTG4icfZQH+xPyh8VA==
 
-lq-form@^0.1.26:
-  version "0.1.26"
-  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.26.tgz#f39e563d1b648250ad37c4a4ab8ad73e4fd92528"
-  integrity sha512-enKX1cinp8aLmtz6lu4WFRnTn7kUe5ePwzE2EtisAJftziSsRAk0iTpzJEyRWcF0dPOafJ2SHSa+C86LFi7OSw==
+lq-form@^0.1.27:
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/lq-form/-/lq-form-0.1.27.tgz#9ab85b2d1f2ee004bb0e9ee4d976de2c41e72220"
+  integrity sha512-175sblE52uTGqTVXzCIVKvQB7bx/6XirHe/+6lwytz0AfgORzrmOFu76KXp0X3jOUKXmA85vljBMKnLFtl/yJQ==
   dependencies:
     axios "^0.19.0"
     lodash "^4.17.11"
