@@ -42,6 +42,11 @@ export default VTextField.extend({
         this.lazyValue = val
         this.setValue(this.lazyValue)
       }
+    },
+    LQElement (val) {
+      if (val !== this.lazyValue && !this.internalChange) {
+        this.lazyValue = val
+      }
     }
   },
   created () {
