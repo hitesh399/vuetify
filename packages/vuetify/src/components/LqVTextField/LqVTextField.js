@@ -50,9 +50,18 @@ export default VTextField.extend({
     }
   },
   created () {
+    /**
+     * assign the value in state if value contains any data.
+     */
     if (this.value) {
       this.lazyValue = this.value
       this.setValue(this.lazyValue)
+    }
+    /**
+     * If element already has value in state then assign into local veriable
+     */
+    if (this.LQElement) {
+      this.lazyValue = this.LQElement
     }
   },
   methods: {

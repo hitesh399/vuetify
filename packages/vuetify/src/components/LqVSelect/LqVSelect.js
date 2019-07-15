@@ -585,7 +585,8 @@ export default VTextField.extend({
       const index = this.allItems.findIndex(item => this.getText(item).toLowerCase().startsWith(this.keyboardLookupPrefix))
       const item = this.allItems[index]
       if (index !== -1) {
-        this.setInternalValue(this.returnObject ? item : this.getValue(item))
+        // this.setInternalValue(this.returnObject ? item : this.getValue(item))
+        this.setInternalValue(item)
         setTimeout(() => this.setMenuIndex(index))
       }
     },
@@ -675,16 +676,18 @@ export default VTextField.extend({
     },
     selectItem (item) {
       if (!this.multiple) {
-        this.setInternalValue(this.returnObject ? item : this.getValue(item))
+        // this.setInternalValue(this.returnObject ? item : this.getValue(item))
+        this.setInternalValue(item)
         this.isMenuActive = false
       } else {
         const internalValue = (this.internalValue || []).slice()
         const i = this.findExistingIndex(item)
 
         i !== -1 ? internalValue.splice(i, 1) : internalValue.push(item)
-        this.setInternalValue(internalValue.map(i => {
-          return this.returnObject ? i : this.getValue(i)
-        }))
+        // this.setInternalValue(internalValue.map(i => {
+        //   return this.returnObject ? i : this.getValue(i)
+        // }))
+        this.setInternalValue(internalValue)
 
         // When selecting multiple
         // adjust menu after each

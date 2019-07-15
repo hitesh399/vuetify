@@ -108,12 +108,14 @@ export default mixins(
 
   watch: {
     LQElement (val) {
-      if (!this.internalChange) {
+      if (val !== this.lazyValue && !this.internalChange) {
         this.lazyValue = val
       }
     },
     value (val) {
-      this.lazyValue = val
+      if (!this.internalChange) {
+        this.lazyValue = val
+      }
     }
   },
 
@@ -123,7 +125,16 @@ export default mixins(
     this.$_modelEvent = (this.$options.model && this.$options.model.event) || 'input'
   },
   created () {
+    /**
+     * assign the value in state if value contains any data.
+     */
     if (this.value) this.lazyValue = this.value
+    /**
+     * If element already has value in state then assign into local veriable
+     */
+    if (this.LQElement) {
+      this.lazyValue = this.LQElement
+    }
   },
   methods: {
     genContent () {

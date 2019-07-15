@@ -21,7 +21,7 @@ export default {
     },
     returnObject: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
 
